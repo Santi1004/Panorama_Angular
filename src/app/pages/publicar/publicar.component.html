@@ -1,0 +1,58 @@
+<section class="section" style="background: var(--paper-soft)">
+  <div class="container">
+    <div class="section-head">
+      <h2>Publicar una noticia</h2>
+      <p>Panel simple de administración (crear / eliminar) para fines académicos.</p>
+    </div>
+
+    <form class="form-card" [formGroup]="form" (ngSubmit)="publicar()" novalidate>
+      <div class="alert" [class.show]="publicada()" role="status">
+        Noticia publicada correctamente. Puedes verla en la sección Noticias.
+      </div>
+
+      <div class="field" [class.invalid]="invalido('titulo')">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" formControlName="titulo" placeholder="Título de la noticia" />
+        <span class="error">El título debe tener al menos 4 caracteres.</span>
+      </div>
+
+      <div class="field">
+        <label for="categoria">Categoría</label>
+        <select id="categoria" formControlName="categoria">
+          @for (c of categorias; track c[0]) {
+            <option [value]="c[0]">{{ c[1] }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field" [class.invalid]="invalido('descripcionBreve')">
+        <label for="breve">Descripción breve</label>
+        <input
+          type="text"
+          id="breve"
+          formControlName="descripcionBreve"
+          placeholder="Resumen corto (aparece en la tarjeta)"
+        />
+        <span class="error">Escribe una descripción breve válida (mínimo 6 caracteres).</span>
+      </div>
+
+      <div class="field" [class.invalid]="invalido('descripcionCompleta')">
+        <label for="completa">Descripción completa</label>
+        <textarea
+          id="completa"
+          formControlName="descripcionCompleta"
+          placeholder="Contenido completo de la noticia"
+        ></textarea>
+        <span class="error">La descripción completa es muy corta (mínimo 11 caracteres).</span>
+      </div>
+
+      <div class="field" [class.invalid]="invalido('imagen')">
+        <label for="imagen">URL de imagen (opcional)</label>
+        <input type="text" id="imagen" formControlName="imagen" placeholder="https://..." />
+        <span class="error">La URL debe comenzar con http:// o https://</span>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Publicar noticia</button>
+    </form>
+  </div>
+</section>

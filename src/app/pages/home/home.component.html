@@ -1,0 +1,79 @@
+<section class="hero">
+  <div class="container">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Portada</div>
+      <h1>Lo que necesitas saber, en un solo lugar.</h1>
+      <p>
+        PANORAMA reúne noticias educativas, tecnológicas, turísticas y comerciales, pensadas
+        para que explores, guardes tus favoritas y estés siempre informado.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/noticias" class="btn btn-primary">Explorar noticias</a>
+        <a routerLink="/contacto" class="btn btn-ghost">Contáctanos</a>
+      </div>
+    </div>
+    <div class="hero-figure">
+      <img
+        src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=900&q=80"
+        alt="Sala de redacción de noticias"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Noticias destacadas</h2>
+      <p>Una selección de las historias más recientes.</p>
+    </div>
+
+    @if (servicio.cargando()) {
+      <div class="empty-state">Cargando noticias…</div>
+    } @else if (servicio.error()) {
+      <div class="empty-state">No se pudieron cargar las noticias. Intenta recargar la página.</div>
+    } @else {
+      <div class="grid-cards">
+        @for (n of destacadas(); track n.id) {
+          <app-noticia-card [noticia]="n" />
+        } @empty {
+          <div class="empty-state">No hay noticias para mostrar todavía.</div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<section class="section" style="background: var(--paper-soft)">
+  <div class="container">
+    <div class="section-head">
+      <h2>Por qué leer PANORAMA</h2>
+    </div>
+    <div class="info-strip">
+      <div class="item">
+        <h3>Contenido variado</h3>
+        <p>Educación, tecnología, turismo y comercio en un solo espacio, sin ruido innecesario.</p>
+      </div>
+      <div class="item">
+        <h3>Guarda lo que te interesa</h3>
+        <p>
+          Marca tus noticias favoritas y encuéntralas fácilmente cuando quieras volver a leerlas.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Participa</h3>
+        <p>Escríbenos o comparte una noticia desde la sección Publicar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="text-align: center">
+    <h2>¿Tienes una historia para contar?</h2>
+    <p style="color: var(--gray); max-width: 52ch; margin: 10px auto 22px">
+      Escríbenos desde la página de contacto y cuéntanos qué te gustaría ver en PANORAMA.
+    </p>
+    <a routerLink="/contacto" class="btn btn-primary">Ir a contacto</a>
+  </div>
+</section>

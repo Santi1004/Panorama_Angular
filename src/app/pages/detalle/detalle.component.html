@@ -1,0 +1,40 @@
+<section class="section">
+  @if (!servicio.cargando()) {
+    @if (noticia(); as n) {
+      <div class="container detail-header">
+        <span class="card-cat">{{ nombreCategoria(n) }}</span>
+        <h1>{{ n.titulo }}</h1>
+        <div class="detail-meta">Publicado el {{ n.fecha | date: formatoFecha }}</div>
+      </div>
+      <div class="container">
+        <div class="detail-figure">
+          <img [src]="n.imagen" [alt]="n.titulo" />
+        </div>
+        <div class="detail-body">
+          <p>{{ n.descripcionCompleta }}</p>
+        </div>
+        <div class="detail-actions">
+          <button type="button" class="btn btn-primary" (click)="favoritos.alternar(n.id)">
+            {{ favoritos.esFavorito(n.id) ? '★ Quitar de favoritos' : '☆ Agregar a favoritos' }}
+          </button>
+          <a routerLink="/contacto" class="btn btn-ghost">Contactar sobre esta noticia</a>
+          <a routerLink="/noticias" class="btn btn-ghost">Volver al listado</a>
+        </div>
+      </div>
+    } @else {
+      <div class="container">
+        <div class="empty-state">
+          <h2>Noticia no encontrada</h2>
+          <p>Puede que haya sido eliminada.</p>
+          <a routerLink="/noticias" class="btn btn-primary" style="margin-top: 14px">
+            Volver a noticias
+          </a>
+        </div>
+      </div>
+    }
+  } @else {
+    <div class="container">
+      <div class="empty-state">Cargando noticia…</div>
+    </div>
+  }
+</section>

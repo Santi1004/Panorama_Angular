@@ -1,0 +1,24 @@
+<header class="site-header">
+  <div class="container header-top">
+    <div>
+      <div class="brand">PANORAMA<span>.</span></div>
+      <div class="brand-tag">Noticias educativas, tecnológicas, turísticas y comerciales</div>
+    </div>
+    <!-- Interpolación + pipe "date": muestra la fecha de hoy en español -->
+    <div class="today">{{ hoy | date: formatoFecha }}</div>
+  </div>
+  <div class="container">
+    <nav class="main-nav">
+      @for (enlace of enlaces; track enlace.ruta) {
+        <a
+          [routerLink]="enlace.ruta"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [routerLinkActiveOptions]="{ exact: enlace.ruta === '/' }"
+          [attr.aria-current]="rla.isActive ? 'page' : null"
+          >{{ enlace.texto }}</a
+        >
+      }
+    </nav>
+  </div>
+</header>

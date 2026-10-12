@@ -1,0 +1,45 @@
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Catálogo de noticias</h2>
+      <p>Filtra por categoría o busca por palabra para encontrar lo que buscas.</p>
+    </div>
+
+    <div class="filters" role="group" aria-label="Filtrar por categoría">
+      @for (f of filtros; track f.valor) {
+        <!-- [class.active] = property binding; (click) = event binding -->
+        <button
+          type="button"
+          [class.active]="filtroActivo() === f.valor"
+          (click)="filtroActivo.set(f.valor)"
+        >
+          {{ f.texto }}
+        </button>
+      }
+    </div>
+
+    <!-- Enlace de dos vías: el campo muestra el valor y avisa cuando el usuario escribe -->
+    <input
+      type="search"
+      class="buscador"
+      placeholder="Buscar noticias…"
+      aria-label="Buscar noticias"
+      [ngModel]="busqueda()"
+      (ngModelChange)="busqueda.set($event)"
+    />
+
+    @if (servicio.cargando()) {
+      <div class="empty-state">Cargando noticias…</div>
+    } @else if (servicio.error()) {
+      <div class="empty-state">No se pudieron cargar las noticias. Intenta recargar la página.</div>
+    } @else {
+      <div class="grid-cards">
+        @for (n of filtradas(); track n.id) {
+          <app-noticia-card [noticia]="n" [permitirEliminar]="true" (eliminar)="eliminar($event)" />
+        } @empty {
+          <div class="empty-state">No hay noticias para mostrar todavía.</div>
+        }
+      </div>
+    }
+  </div>
+</section>

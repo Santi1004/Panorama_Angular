@@ -1,0 +1,24 @@
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Tus noticias favoritas</h2>
+      <p>Guardadas en este navegador.</p>
+    </div>
+
+    @if (servicio.cargando()) {
+      <div class="empty-state">Cargando favoritos…</div>
+    } @else if (favoritas().length === 0) {
+      <div class="empty-state">
+        <h3>Aún no tienes favoritos</h3>
+        <p>Explora las noticias y guarda las que más te interesen.</p>
+        <a routerLink="/noticias" class="btn btn-primary" style="margin-top: 14px">Ver noticias</a>
+      </div>
+    } @else {
+      <div class="grid-cards">
+        @for (n of favoritas(); track n.id) {
+          <app-noticia-card [noticia]="n" />
+        }
+      </div>
+    }
+  </div>
+</section>
